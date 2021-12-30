@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import PageNotFound from './pages/pagenotfound';
 import Signin from './pages/signin';
 import Signup from './pages/signup';
+import Products from './pages/products/products.js'
 
 
 
@@ -23,6 +24,8 @@ function App() {
           <Route path="signup" element={<Signup />} />
 
           <Route path="addproducts" element={<AddProducts />} />
+
+          <Route path="products" element={<Products />}  />
 
           <Route path='*' element={<PageNotFound />} /> 
 

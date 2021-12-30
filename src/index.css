@@ -87,6 +87,13 @@
 }
 
 
+.add{
+  display: flex;
+}
+
+
+
+
 .products-box{
   width: 100%;
   display: flex;
@@ -232,6 +239,7 @@
   display: flex;
   justify-content: space-between;
 }
+
 
 
 
