@@ -41,19 +41,19 @@ const Navbar = () => {
 
                     {auth.currentUser ? (
                         <>
-                            <Link to='/signin'>{auth.currentUser.email}</Link>
+                            <Link to='/signin' className="l">{auth.currentUser.email}</Link>
     
-                            <Link to='#'>Cart</Link>
+                            <Link to='#' className="l">Cart</Link>
     
-                            <Link to='/' onClick={handleSignOut}>Sign Out</Link>
+                            <Link to='/' onClick={handleSignOut} className="l">Sign Out</Link>
                         </>
                     ) : ( 
     
                         
                         <>
-                            <Link to='signup'>SIGN UP</Link>
+                            <Link to='signup' className="l">SIGN UP</Link>
     
-                            <Link to='signin'>SIGN IN</Link>
+                            <Link to='signin' className="l">SIGN IN</Link>
                         </>
                         
                     )}

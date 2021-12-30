@@ -72,14 +72,18 @@
 }
 
 
-.navbar .rightside div{
+.navbar .rightside{
+  display: flex;
   margin: 0px 10px;
+  padding-right: 30px;
 }
 
 
-.navbar .rightside div .navlink{
+.navbar .rightside .l{
   text-decoration: none;
   color: #000;
+  display: flex;
+  padding-right: 30px;
 }
 
 
