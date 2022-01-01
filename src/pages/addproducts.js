@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router';
 import { db, storage} from '../firebase/config';
 import { addDoc, collection } from "firebase/firestore"; 
 import { ref, getDownloadURL, uploadBytes} from 'firebase/storage';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/navbar/Navbar';
 import Sidebar from '../components/sidebar/Sidebar.';
 
 
