@@ -1,113 +1,218 @@
-import "./product.css";
 import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../dummyData";
-import { Link } from "react-router-dom";
-import  React, { useState } from "react";
+import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/Sidebar.";
+import React, { useState , useEffect} from 'react'
+import { db } from '../../firebase/config';
+import { collection, onSnapshot, setDoc, doc  } from "firebase/firestore"; 
+import "./product.css";
+import { DeleteOutline, EditOutlined } from "@material-ui/icons";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Products() {
-  const [data, setData] = useState(productRows);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+
+
+export default function Product() {
+
+  const navigate = useNavigate();
+
+
+  const [products, setProducts] = useState([])
+
+    useEffect(() => {
+        const unsub = onSnapshot(collection(db, "Products"), 
+        (snapshot) => {
+
+            setProducts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+        });
+
+        return unsub;
+  }, []);
+
+
+  const handleCellClick = (param, event) => {
+    if (param.colIndex === 2) {
+      event.stopPropagation();
+    }
+  };
+  
+  const handleRowClick = (param, event) => {
   };
 
+
+  const handleEdit = async(id, img, title, description, stock, price) => {
+    navigate("/products/" + id, {
+      state: {
+        id: id,
+        img: img,
+        title: title,
+        description: description,
+        stock: stock,
+        price: price
+      }
+    })
+    
+  }
+    
+    
+    
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
     {
-      field: "product",
-      headerName: "Product",
-      width: 200,
+      field: "id",
+      headerName: "ID",
+      width: 90,
+    },
+
+    {
+      field: "productImg",
+      headerName: "Product Image",
+      width: 120,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            <img className="productListImg" src={params.row.productImg} alt="" />
+
+            {/* <div style={{color: "blue", fontSize: 18, width: "100%", textAlign: "center"}}>
+              {params.row.productTitle}
+            </div> */}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
+
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
+      field: "productTitle",
+      headerName: "Product Title",
+      width: 160,
+      renderCell: (cellValues) => {
+        return (
+          <div
+            style={{
+              color: "blue",
+              fontSize: 18,
+              width: "100%",
+              textAlign: "left"
+            }}
+          >
+            {cellValues.value}
+          </div>
+        );
+      }
     },
+
+
+    {
+      field: "productDescription",
+      headerName: "Product Description",
+      width: 160,
+      renderCell: (cellValues) => {
+        return (
+          <div
+            style={{
+              color: "black",
+              fontSize: 18,
+              width: "100%",
+              textAlign: "left"
+            }}
+          >
+            {cellValues.value}
+          </div>
+        );
+      }
+    },
+
+
+    {
+      field: "stock",
+      headerName: "Stock",
+      type: "number",
+      width: 120,
+      align: "center"
+    },
+
     {
       field: "price",
       headerName: "Price",
-      width: 160,
+      type: "number",
+      width: 120,
+      align: "center"
     },
+
+
     {
-      field: "action",
-      headerName: "Action",
-      width: 150,
+      field: "edit",
+      headerName: "Edit",
+      width: 120,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={"/product/" + params.row.id}>
-              <button className="productListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="productListDelete"
-              onClick={() => handleDelete(params.row.id)}
+            <EditOutlined className="productListEdit" 
+            onClick={() => 
+              handleEdit(
+                params.row.id, 
+                params.row.productImg,
+                params.row.productTitle, 
+                params.row.productDescription,
+                params.row.stock,
+                params.row.price
+            )}
+            
             />
-          </>
         );
       },
     },
+
+
+    {
+      field: "delete",
+      headerName: "Delete",
+      width: 120,
+      renderCell: (params) => {
+        return (
+          <DeleteOutline
+            className="productListDelete"
+            // onClick={() => handleDelete(params.row.id)}
+          />
+        );
+      },
+    },
+
+
   ];
 
+  const rows = products.map((product) => (
+      {
+        id: product.id,
+        productImg: product.picture,
+        productTitle: product.title,
+        productDescription: product.description,
+        stock: product.stock,
+        price: product.price,
+        edit: product.id
+      }
+  ))
+
+    
+
   return (
-    <div className="productList">
-      <DataGrid
-        rows={data}
-        disableSelectionOnClick
-        columns={columns}
-        pageSize={8}
-        checkboxSelection
-      />
-    </div>
+
+
+    <>
+
+      <Navbar />
+
+      <div className="add">
+        <Sidebar />
+        <div style={{ height: 700, marginTop: "20px", marginRight: "20px", flex: 4}}>
+          <DataGrid
+            rowHeight={120}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            checkboxSelection
+            onCellClick={handleCellClick}
+            onRowClick={handleRowClick}
+          />
+        </div>
+      </div>
+    </>  
   );
 }
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import { DataGrid, GridRowModel, GridColDef} from '@mui/x-data-grid';
-
-
-
-
-
-// const initial: Gr = [
-//   { id: 1, col1: 'Hello', col2: 'World' },
-//   { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-//   { id: 3, col1: 'MUI', col2: 'is Amazing' },
-// ];
-
-// const GridColDef = [
-//   { field: 'col1', headerName: 'Column 1', width: 150 },
-//   { field: 'col2', headerName: 'Column 2', width: 150 },
-// ];
-
-// export default function Products() {
-//   return (
-//     <div style={{ height: 300, width: '100%' }}>
-//       <DataGrid rows={GridRowsProp} columns={GridColDef} />
-//     </div>
-//   );
-// }
-
-
-
-
-
-

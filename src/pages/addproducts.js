@@ -66,7 +66,7 @@ const AddProducts = () => {
     
             setData({
                 ...data, 
-                title: "",
+                title: "", 
                 description: "",
                 price: "",
                 stock: "",
@@ -78,21 +78,12 @@ const AddProducts = () => {
     
             setImage(null);
 
-        }
-        
-        catch (error) {
-            
+        } catch (error) {
             setData({
                  ...data, uploadErrorMsg: error.message
             })
-        }
-
-            
+        }        
     }
-
-
-    
-
 
 
     return (
@@ -106,100 +97,100 @@ const AddProducts = () => {
 
             <Sidebar />
 
-<Container 
-className="align-items-center justify-content-center" 
-style={{ minHeight: "100%",
-flex: "2"
-}}>
+            <Container 
+            className="align-items-center justify-content-center" 
+            style={{ minHeight: "100%",
+            flex: "2"
+            }}>
 
-    <div className="w-100" style={{ maxWidth: "400px",
-     marginTop: "20px"
-     }}>
+                <div className="w-100" style={{ maxWidth: "400px",
+                marginTop: "20px"
+                }}>
 
-        <Card>
-            <Card.Body>
+                    <Card>
+                        <Card.Body>
 
-            {success ? <p>{success}</p> : null} 
+                        {success ? <p>{success}</p> : null} 
 
-            {uploadErrorMsg ? <p>{uploadErrorMsg}</p> : null}
-                <h2 className="text-center mb-4">Add Products</h2>
+                        {uploadErrorMsg ? <p>{uploadErrorMsg}</p> : null}
+                            <h2 className="text-center mb-4">Add Products</h2>
 
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Product Title</Form.Label>
-                        <Form.Control 
-                        type="text" required 
-                        value={title}
-                        name="title"
-                        onChange={handleChange}></Form.Control>
-                    </Form.Group>
-
-
-                    <Form.Group>
-                        <Form.Label>Product Description</Form.Label>
-                        <Form.Control 
-                        type="text" 
-                        required 
-                        value={description}
-                        name="description"
-                        onChange={handleChange}></Form.Control>
-                    </Form.Group>
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group>
+                                    <Form.Label>Product Title</Form.Label>
+                                    <Form.Control 
+                                    type="text" required 
+                                    value={title}
+                                    name="title"
+                                    onChange={handleChange}></Form.Control>
+                                </Form.Group>
 
 
-                    <Form.Group>
-                        <Form.Label>Product Price</Form.Label>
-                        <Form.Control 
-                        type="number" 
-                        required 
-                        value={price}
-                        name="price"
-                        onChange={handleChange}></Form.Control>
-                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Product Description</Form.Label>
+                                    <Form.Control 
+                                    type="text" 
+                                    required 
+                                    value={description}
+                                    name="description"
+                                    onChange={handleChange}></Form.Control>
+                                </Form.Group>
 
 
-                    <Form.Group>
-                        <Form.Label>Number in Stock</Form.Label>
-                        <Form.Control 
-                        type="number" 
-                        required 
-                        value={stock}
-                        name="stock"
-                        onChange={handleChange}></Form.Control>
-                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Product Price</Form.Label>
+                                    <Form.Control 
+                                    type="number" 
+                                    required 
+                                    value={price}
+                                    name="price"
+                                    onChange={handleChange}></Form.Control>
+                                </Form.Group>
 
 
-                    <Form.Group>
-                        <Form.Label>Upload Product Image</Form.Label>
-                        <Form.Control 
-                        type="file"
-                        id='file' 
-                        required 
-                        accept='image/*'
-                        onChange={(e) => setImage(e.target.files[0])}></Form.Control>
-                    </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Number in Stock</Form.Label>
+                                    <Form.Control 
+                                    type="number" 
+                                    required 
+                                    value={stock}
+                                    name="stock"
+                                    onChange={handleChange}></Form.Control>
+                                </Form.Group>
 
 
+                                <Form.Group>
+                                    <Form.Label>Upload Product Image</Form.Label>
+                                    <Form.Control 
+                                    type="file"
+                                    id='file' 
+                                    required 
+                                    accept='image/*'
+                                    onChange={(e) => setImage(e.target.files[0])}></Form.Control>
+                                </Form.Group>
+
+
+
+                                
+
+
+                                <br />
+
+                                <Button 
+                                className="w-100" 
+                                type="submit" disabled={loading}
+                                >
+                                    {loading ? "Adding Products" : "Add Products"}
+                                </Button>
+                            </Form>
+                        </Card.Body>
+
+                    </Card>
 
                     
 
-
-                    <br />
-
-                    <Button 
-                    className="w-100" 
-                    type="submit" disabled={loading}
-                    >
-                        {loading ? "Adding Products" : "Add Products"}
-                    </Button>
-                </Form>
-            </Card.Body>
-
-        </Card>
-
-         
-
-    </div>
-</Container>
+                </div>
+            </Container>
 
 
 

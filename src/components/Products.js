@@ -6,7 +6,7 @@ const Products = ({ products }) => {
     return (
         <div className='products-box'>
             {products.map((individualproduct) => (
-                <IndividualProduct key={individualproduct.ID} individualproduct={individualproduct} />
+                <IndividualProduct key={individualproduct.ID} individualproduct={individualproduct} /> 
             ))}
 
             {/* <ul>

@@ -6,6 +6,8 @@ import PageNotFound from './pages/pagenotfound';
 import Signin from './pages/signin';
 import Signup from './pages/signup';
 import Products from './pages/products/products.js'
+import Admin from './pages/Admin';
+import Edit from './pages/edit/edit';
 
 
 
@@ -26,6 +28,12 @@ function App() {
           <Route path="addproducts" element={<AddProducts />} />
 
           <Route path="products" element={<Products />}  />
+
+          <Route path="admin" element={<Admin />} />
+
+          <Route path="edit" element={<Edit />} />
+
+          <Route path="/products/:productId" element={<Edit />} />
 
           <Route path='*' element={<PageNotFound />} /> 
 
